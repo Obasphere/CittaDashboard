@@ -8,6 +8,19 @@ namespace CittaDashboard
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
+            bundles.Add(new ScriptBundle("~/bundles/vendor").Include(
+                      "~/Scripts/vendor/jquery/jquery.min.js",
+                      "~/Scripts/vendor/bootstrap/js/bootstrap.bundle.min.js",
+                      "~/Scripts/vendor/jquery-easing/jquery.easing.min.js",
+                      "~/Scripts/vendor/chart.js/Chart.min.js",
+                      "~/Scripts/vendor/datatables/jquery.dataTables.js",
+                      "~/Scripts/vendor/datatables/dataTables.bootstrap4.js",
+                      "~/Scripts/js/sb-admin.min.js",
+                      "~/Scripts/js/demo/datatables-demo.js",
+                      "~/Scripts/js/demo/chart-area-demo.js"));
+
+            
+
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
@@ -22,9 +35,16 @@ namespace CittaDashboard
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js"));
 
+            bundles.Add(new StyleBundle("~/Content/vendor").Include(
+                      "~/Content/vendor/bootstrap/css/bootstrap.min.css",
+                      "~/Content/vendor/fontawesome-free/css/all.min.css",
+                      "~/Content/vendor/datatables/dataTables.bootstrap4.css",
+                      "~/Content/sb-admin.min.css"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/dashboard.css"));
         }
     }
 }

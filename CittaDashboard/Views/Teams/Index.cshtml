@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CittaDashboard.Models.DB.Team>
+
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Sidebar -->
+<ul class="sidebar navbar-nav">
+
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Dashboard", "Dashboard")">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="@Url.Action("Index", "Teams")">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Teams</span>
+        </a>
+    </li>
+
+</ul>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><h1>Teams</h1></li>
+        </ol>
+
+        <!-- content header-->
+        <section class="content">
+            <div class="container-fluid">
+                <p>
+                    <a href="@Url.Action("Create", "Teams")" class="btn btn-primary">Add a New Team</a>
+                </p>
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <th>Teams</th>
+                        <th>All Contacts</th>
+                        <th>All Items</th>
+                        <th>All Invoices</th>
+                        <th>All Opportunities</th>
+                        <th>Unpaid Invoices</th>
+                        <th>Paid Invoices</th>
+                        <th>Lost Opportunities</th>
+                        <th>Won Opportunities</th>
+                        <th>New Opportunities</th>
+                        <th>Undeposited Funds</th>
+                        <th>Deposited Payment</th>
+                        <th>Action</th>
+                    </tr>
+
+                    @foreach (var t in Model)
+                    {
+                        <tr>
+                            <td>@t.Name</td>
+                            <td>@t.All_contacts</td>
+                            <td>@t.All_items</td>
+                            <td>@t.All_invoices</td>
+                            <td>@t.All_opportunities</td>
+                            <td>@t.Unpaid_invoices</td>
+                            <td>@t.Paid_invoices</td>
+                            <td>@t.Lost_opportunities</td>
+                            <td>@t.Won_opportunities</td>
+                            <td>@t.New_opportunities</td>
+                            <td>@t.Undeposited_funds</td>
+                            <td>@t.Deposited_funds</td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id=t.Id })
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </section>
+    </div>
+</div>

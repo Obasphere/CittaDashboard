@@ -1,0 +1,116 @@
+﻿@model CittaDashboard.Models.DB.Entities
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Sidebar -->
+<ul class="sidebar navbar-nav">
+
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Dashboard", "Dashboard")">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span>
+        </a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="@Url.Action("Index", "Teams")">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Teams</span>
+        </a>
+    </li>
+
+</ul>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumb-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><h1>Add a New Team</h1></li>
+        </ol>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6>Team Name</h6>
+                        <input type="text" class="form-control" name="Name" placeholder="Type Team Name"><br>
+                        <h6>All Contacts</h6>
+                        <select name="All_contacts" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.contactCount">@ViewBag.contactCount</option>
+                        </select><br>
+                        <h6>All Items</h6>
+                        <select name="All_items" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.itemCount">@ViewBag.itemCount</option>
+                        </select><br>
+                        <h6>All Invoices</h6>
+                        <select name="All_invoices" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.invoiceCount">@ViewBag.invoiceCount</option>
+                        </select><br>
+                        <h6>All Opportunities</h6>
+                        <select name="All_opportunities" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.opportunityCount">@ViewBag.opportunityCount</option>
+                        </select><br>
+                        <h6>Unpaid Invoices</h6>
+                        <select name="Unpaid_invoices" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.unpaid_invoiceCount">@ViewBag.unpaid_invoiceCount</option>
+                        </select><br>
+                        <h6>Paid Invoices</h6>
+                        <select name="Paid_invoices" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.paid_invoiceCount">@ViewBag.unpaid_invoiceCount</option>
+                        </select><br>
+                        <h6>Lost Opportunities</h6>
+                        <select name="Lost_opportunities" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.lost_opportunityCount">@ViewBag.lost_opportunityCount</option>
+                        </select><br>
+                        <h6>Won Opportunities</h6>
+                        <select name="Won_opportunities" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.won_opportunityCount">@ViewBag.won_opportunityCount</option>
+                        </select><br>
+                        <h6>New Opportunities</h6>
+                        <select name="New_opportunities" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.new_opportunityCount">@ViewBag.new_opportunityCount</option>
+                        </select><br>
+                        <h6>Undeposited Funds</h6>
+                        <select name="Undeposited_funds" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.undeposited_fundsCount">@ViewBag.undeposited_fundsCount</option>
+                        </select><br>
+                        <h6>Deposited Payment</h6>
+                        <select name="Deposited_funds" class="form-control">
+                            <option value="N/A">N/A</option>
+                            <option value="@ViewBag.deposited_fundsCount">@ViewBag.deposited_fundsCount</option>
+                        </select>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+        <div>
+            @Html.ActionLink("Back to List", "Index")
+        </div>
