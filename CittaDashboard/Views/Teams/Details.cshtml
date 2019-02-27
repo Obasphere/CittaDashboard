@@ -15,10 +15,12 @@
 
     @foreach (var t in Model)
     {
-        <li class="nav-item active">
+    <li class="nav-item active">
+        <a class="nav-link" href="@Url.Action("Details", "Teams", new { id = t.Id })">
             <i class="fas fa-fw fa-table"></i>
-            <span>@Html.ActionLink(@t.Name, "Details", new { id = t.Id })</span>
-        </li>
+            <span>@t.Name</span>
+        </a>
+    </li>
     }
 
 </ul>
