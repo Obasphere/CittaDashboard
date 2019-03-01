@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Helpers;
+using System.Collections;
 using CittaDashboard.Models.DB;
 
 namespace CittaDashboard.Controllers
@@ -21,8 +23,8 @@ namespace CittaDashboard.Controllers
             return View(DB.Teams.ToList());
         }
 
-        // GET: Teams/Details/5
-        public ActionResult Details(Int32 id)
+        // GET: Teams/DetailsCard/5
+        public ActionResult DetailsCard(Int32 id)
         {
             team = DB.Teams.Find(id);
 
@@ -40,6 +42,46 @@ namespace CittaDashboard.Controllers
             ViewBag.Deposited_funds = team.Deposited_funds;
             
             return View(DB.Teams.ToList());
+        }
+
+        // GET: Teams/DetailsChart/5
+        public ActionResult DetailsChart(Int32 id)
+        {
+            team = DB.Teams.Find(id);
+
+            ViewBag.Name = team.Name;
+            ViewBag.All_contacts = team.All_contacts;
+            ViewBag.All_items = team.All_items;
+            ViewBag.All_invoices = team.All_invoices;
+            ViewBag.All_opportunities = team.All_opportunities;
+            ViewBag.Unpaid_invoices = team.Unpaid_invoices;
+            ViewBag.Paid_invoices = team.Paid_invoices;
+            ViewBag.Lost_opportunities = team.Lost_opportunities;
+            ViewBag.Won_opportunities = team.Won_opportunities;
+            ViewBag.New_opportunities = team.New_opportunities;
+            ViewBag.Undeposited_funds = team.Undeposited_funds;
+            ViewBag.Deposited_funds = team.Deposited_funds;
+
+            return View(DB.Teams.ToList());
+        }
+
+        // GET: Chart
+        public ActionResult CharterColumn()
+        {
+            ArrayList xValue = new ArrayList();
+            ArrayList yValue = new ArrayList();
+
+            var results = (from c in DB.Invoices select c);
+            results.ToList().ForEach(rs => xValue.Add(rs.Issue_date));
+            results.ToList().ForEach(rs => yValue.Add(rs.Due_date));
+
+            new Chart(width: 800, height: 400, theme: ChartTheme.Blue)
+            .AddTitle("Chart for All Invoices [Issue Date against Due Date]")
+            .AddSeries("Default", chartType: "Column", xValue: xValue, yValues: yValue)
+            .AddLegend("Title")
+            .Write("bmp");
+
+            return null;
         }
 
         // GET: Teams/Create
