@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CittaDashboard.Models.DB.Team>
+
+@{
+    /**/
+
+    ViewBag.Title = "DetailsChart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Sidebar -->
+<ul class="sidebar navbar-nav">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("DetailsCard/1", "Teams")">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Card</span>
+        </a>
+    </li>
+
+    @foreach (var t in Model)
+    {
+        <li class="nav-item active">
+            <a class="nav-link" href="@Url.Action("DetailsChart", "Teams", new { id = t.Id })">
+                <i class="fas fa-fw fa-table"></i>
+                <span>@t.Name</span>
+            </a>
+        </li>
+    }
+
+</ul>
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Chart</li>
+            <li class="breadcrumb-item active">Overview</li>
+        </ol>
+
+        <!-- Icon Cards-->
+        <div class="row">
+
+            <div class="col-xl-3 col-sm-6 mb-3 @(@ViewBag.All_invoices == "N/A" ? "hidden" : "show")">
+                <img src="@Url.Action("CharterColumn")" alt="Chart" />
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</div>
+<!-- /.content-wrapper -->
