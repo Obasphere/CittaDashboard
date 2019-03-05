@@ -65,8 +65,8 @@ namespace CittaDashboard.Controllers
             return View(DB.Teams.ToList());
         }
 
-        // GET: Chart
-        public ActionResult CharterColumn()
+        // GET: Chart - All Invoices
+        public ActionResult ChartInvoices()
         {
             ArrayList xValue = new ArrayList();
             ArrayList yValue = new ArrayList();
@@ -77,7 +77,29 @@ namespace CittaDashboard.Controllers
 
             new Chart(width: 800, height: 400, theme: ChartTheme.Blue)
             .AddTitle("Chart for All Invoices [Issue Date against Due Date]")
-            .AddSeries("Default", chartType: "Column", xValue: xValue, yValues: yValue)
+            .AddSeries("Default", chartType: "Pie", xValue: xValue, yValues: yValue)
+            .AddLegend("Title")
+            .Write("bmp");
+
+            return null;
+        }
+
+        // GET: Chart - All Opportunities
+        public ActionResult ChartOpportunities()
+        {
+            ArrayList xValue = new ArrayList();
+            ArrayList yValue = new ArrayList();
+
+            int lost = DB.Opportunities.Where(e => e.Status == "lost").Count();
+            lost = xValue.Add(lost);
+            int won = DB.Opportunities.Where(e => e.Status == "won").Count();
+            won = xValue.Add(won);
+            int lnew = DB.Opportunities.Where(e => e.Status == "new").Count();
+            lnew = xValue.Add(lnew);
+
+            new Chart(width: 800, height: 400, theme: ChartTheme.Blue)
+            .AddTitle("Chart for All Opportunities [Issue Date against Due Date]")
+            .AddSeries("Default", chartType: "Pyramid", xValue: xValue)
             .AddLegend("Title")
             .Write("bmp");
 

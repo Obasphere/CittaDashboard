@@ -44,7 +44,11 @@
         <div class="row">
 
             <div class="col-xl-3 col-sm-6 mb-3 @(@ViewBag.All_invoices == "N/A" ? "hidden" : "show")">
-                <img src="@Url.Action("CharterColumn")" alt="Chart" />
+                <img src="@Url.Action("ChartInvoices")" alt="Chart" />
+            </div>
+
+            <div class="col-xl-3 col-sm-6 mb-3 @(@ViewBag.All_opportunities == "N/A" ? "hidden" : "show")">
+                <img src="@Url.Action("ChartOpportunities")" alt="Chart" />
             </div>
         </div>
     </div>
