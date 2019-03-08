@@ -29,18 +29,30 @@ namespace CittaDashboard.Controllers
             team = DB.Teams.Find(id);
 
             ViewBag.Name = team.Name;
-            ViewBag.All_contacts = team.All_contacts;
-            ViewBag.All_items = team.All_items;
-            ViewBag.All_invoices = team.All_invoices;
-            ViewBag.All_opportunities = team.All_opportunities;
-            ViewBag.Unpaid_invoices = team.Unpaid_invoices;
-            ViewBag.Paid_invoices = team.Paid_invoices;
-            ViewBag.Lost_opportunities = team.Lost_opportunities;
-            ViewBag.Won_opportunities = team.Won_opportunities;
-            ViewBag.New_opportunities = team.New_opportunities;
-            ViewBag.Undeposited_funds = team.Undeposited_funds;
-            ViewBag.Deposited_funds = team.Deposited_funds;
-            
+            ViewBag.All_contacts = DB.Contacts.Count();
+            ViewBag.All_items = DB.Items.Count();
+            ViewBag.All_invoices = DB.Invoices.Count();
+            ViewBag.All_opportunities = DB.Opportunities.Count();
+            ViewBag.Unpaid_invoices = DB.Invoices.Where(e => e.Status == "sent").Count();
+            ViewBag.Paid_invoices = DB.Invoices.Where(e => e.Status == "paid").Count();
+            ViewBag.Lost_opportunities = DB.Opportunities.Where(e => e.Status == "lost").Count();
+            ViewBag.Won_opportunities = DB.Opportunities.Where(e => e.Status == "won").Count();
+            ViewBag.New_opportunities = DB.Opportunities.Where(e => e.Status == "new").Count();
+            ViewBag.Undeposited_funds = DB.Payments.Where(e => e.Status == "undeposited").Count();
+            ViewBag.Deposited_funds = DB.Payments.Where(e => e.Status == "deposited").Count();
+
+            ViewBag.All_contact = team.All_contacts;
+            ViewBag.All_item = team.All_items;
+            ViewBag.All_invoice = team.All_invoices;
+            ViewBag.All_opportunitie = team.All_opportunities;
+            ViewBag.Unpaid_invoice = team.Unpaid_invoices;
+            ViewBag.Paid_invoice = team.Paid_invoices;
+            ViewBag.Lost_opportunitie = team.Lost_opportunities;
+            ViewBag.Won_opportunitie = team.Won_opportunities;
+            ViewBag.New_opportunitie = team.New_opportunities;
+            ViewBag.Undeposited_fund = team.Undeposited_funds;
+            ViewBag.Deposited_fund = team.Deposited_funds;
+
             return View(DB.Teams.ToList());
         }
 
@@ -77,6 +89,25 @@ namespace CittaDashboard.Controllers
 
             new Chart(width: 800, height: 400, theme: ChartTheme.Blue)
             .AddTitle("Chart for All Invoices [Issue Date against Due Date]")
+            .AddSeries("Default", chartType: "Column", xValue: xValue, yValues: yValue)
+            .AddLegend("Title")
+            .Write("bmp");
+
+            return null;
+        }
+
+        // GET: Chart - All Invoices2
+        public ActionResult ChartInvoices2()
+        {
+            ArrayList xValue = new ArrayList();
+            ArrayList yValue = new ArrayList();
+
+            var results = (from c in DB.Invoices select c);
+            results.ToList().ForEach(rs => xValue.Add(rs.Issue_date));
+            results.ToList().ForEach(rs => yValue.Add(rs.Due_date));
+
+            new Chart(width: 800, height: 400, theme: ChartTheme.Vanilla3D)
+            .AddTitle("Chart for All Invoices [Issue Date against Due Date]")
             .AddSeries("Default", chartType: "Pie", xValue: xValue, yValues: yValue)
             .AddLegend("Title")
             .Write("bmp");
@@ -84,22 +115,19 @@ namespace CittaDashboard.Controllers
             return null;
         }
 
-        // GET: Chart - All Opportunities
-        public ActionResult ChartOpportunities()
+        // GET: Chart - All Invoices3
+        public ActionResult ChartInvoices3()
         {
             ArrayList xValue = new ArrayList();
             ArrayList yValue = new ArrayList();
 
-            int lost = DB.Opportunities.Where(e => e.Status == "lost").Count();
-            lost = xValue.Add(lost);
-            int won = DB.Opportunities.Where(e => e.Status == "won").Count();
-            won = xValue.Add(won);
-            int lnew = DB.Opportunities.Where(e => e.Status == "new").Count();
-            lnew = xValue.Add(lnew);
+            var results = (from c in DB.Invoices select c);
+            results.ToList().ForEach(rs => xValue.Add(rs.Issue_date));
+            results.ToList().ForEach(rs => yValue.Add(rs.Due_date));
 
-            new Chart(width: 800, height: 400, theme: ChartTheme.Blue)
-            .AddTitle("Chart for All Opportunities [Issue Date against Due Date]")
-            .AddSeries("Default", chartType: "Pyramid", xValue: xValue)
+            new Chart(width: 800, height: 400, theme: ChartTheme.Vanilla3D)
+            .AddTitle("Chart for All Invoices [Issue Date against Due Date]")
+            .AddSeries("Default", chartType: "Polar", xValue: xValue, yValues: yValue)
             .AddLegend("Title")
             .Write("bmp");
 
