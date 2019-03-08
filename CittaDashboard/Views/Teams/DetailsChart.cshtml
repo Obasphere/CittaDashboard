@@ -7,6 +7,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <!-- Sidebar -->
 <ul class="sidebar navbar-nav">
     <li class="nav-item">
@@ -43,15 +44,19 @@
         <!-- Icon Cards-->
         <div class="row">
 
-            <div class="col-xl-3 col-sm-6 mb-3 @(@ViewBag.All_invoices == "N/A" ? "hidden" : "show")">
-                <img src="@Url.Action("ChartInvoices")" alt="Chart" />
-            </div>
-
-            <div class="col-xl-3 col-sm-6 mb-3 @(@ViewBag.All_opportunities == "N/A" ? "hidden" : "show")">
-                <img src="@Url.Action("ChartOpportunities")" alt="Chart" />
+            <div class="@(@ViewBag.All_invoices == "N/A" || @ViewBag.Unpaid_invoices == "N/A" || @ViewBag.Paid_invoices == "N/A" ? "hidden" : "show")">
+                <img src="@Url.Action("ChartInvoices")" alt="" id='img'/>
             </div>
         </div>
     </div>
     <!-- /.container-fluid -->
 </div>
 <!-- /.content-wrapper -->
+<script>
+    var images = ['@Url.Action("ChartInvoices")','@Url.Action("ChartInvoices2")','@Url.Action("ChartInvoices3")'];
+            var i = 0;
+            var tagImg = document.getElementById('img');
+    tagImg.onclick = function() {
+                this.src = images[++i % images.length];
+            }
+</script>
