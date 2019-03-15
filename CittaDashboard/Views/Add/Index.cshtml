@@ -1,0 +1,77 @@
+﻿@model CittaDashboard.Models.DB.Contact
+
+@{
+    ViewBag.Title = "Add New Contact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+<link href="~/App_Content/CSS/bootstrap.min.css" rel="stylesheet" />
+<link href="~/App_Content/CSS/font-awesome.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
+
+
+</script>
+
+<style>
+    .button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .button4 {
+        border-radius: 9px;
+    }
+
+    .control {
+        width: 459px;
+        height: 145px;
+    }
+</style>
+
+
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Add New Contact</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Name)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.Name, new { id = "ValidateNametextbox", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+
+
+        <p>
+            <input id="SubmitProject" class="button button4" type="submit" value="Save" onclick="saveToFile()" />
+        </p>
+    </fieldset>
+}
+<script type="text/javascript">
+
+    function saveToFile() {
+            if ($("#ValidateNametextbox").val() == "") {
+                alert("Comment Section should not be empty!!");
+            }
+            else {
+                alert("Go To Home Page of Client Browser.");
+            }
+    };
+</script>  
