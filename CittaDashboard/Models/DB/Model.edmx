@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="TableId" />
+          </Key>
+          <Property Name="Name" Type="varchar" MaxLength="191" Nullable="false" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+          <Property Name="TableId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'citta-dashboard.dbo.Invoices' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Issue_date" />
+            <PropertyRef Name="Due_date" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Issue_date" Type="date" Nullable="false" />
+          <Property Name="Due_date" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="191" Nullable="false" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'citta-dashboard.dbo.Items' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="191" Nullable="false" />
+          <Property Name="created_at" Type="datetime" />
+          <Property Name="updated_at" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'citta-dashboard.dbo.Opportunities' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Opportunities">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="191" Nullable="false" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'citta-dashboard.dbo.Payments' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Payment_date" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Payment_date" Type="date" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="191" Nullable="false" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="All_contacts" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="All_items" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="All_invoices" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="All_opportunities" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Unpaid_invoices" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Paid_invoices" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lost_opportunities" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Won_opportunities" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="New_opportunities" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Undeposited_funds" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deposited_funds" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Created_at" Type="datetime" />
+          <Property Name="Updated_at" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="DBStoreContainer">
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoices" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Invoices].[Id] AS [Id], 
+    [Invoices].[Issue_date] AS [Issue_date], 
+    [Invoices].[Due_date] AS [Due_date], 
+    [Invoices].[Status] AS [Status], 
+    [Invoices].[Created_at] AS [Created_at], 
+    [Invoices].[Updated_at] AS [Updated_at]
+    FROM [dbo].[Invoices] AS [Invoices]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Items" EntityType="Self.Items" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Items].[id] AS [id], 
+    [Items].[name] AS [name], 
+    [Items].[created_at] AS [created_at], 
+    [Items].[updated_at] AS [updated_at]
+    FROM [dbo].[Items] AS [Items]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Opportunities" EntityType="Self.Opportunities" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Opportunities].[Id] AS [Id], 
+    [Opportunities].[Status] AS [Status], 
+    [Opportunities].[Created_at] AS [Created_at], 
+    [Opportunities].[Updated_at] AS [Updated_at]
+    FROM [dbo].[Opportunities] AS [Opportunities]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Payments" EntityType="Self.Payments" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Payments].[Id] AS [Id], 
+    [Payments].[Payment_date] AS [Payment_date], 
+    [Payments].[Status] AS [Status], 
+    [Payments].[Created_at] AS [Created_at], 
+    [Payments].[Updated_at] AS [Updated_at]
+    FROM [dbo].[Payments] AS [Payments]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="TableId" />
+          </Key>
+          <Property Name="Name" Type="String" MaxLength="191" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+          <Property Name="TableId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="Team">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="All_contacts" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="All_items" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="All_invoices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="All_opportunities" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Unpaid_invoices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Paid_invoices" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Lost_opportunities" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Won_opportunities" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="New_opportunities" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Undeposited_funds" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Deposited_funds" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Issue_date" />
+            <PropertyRef Name="Due_date" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Issue_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Due_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="191" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="id" />
+            <PropertyRef Name="name" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="191" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <Property Name="updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Opportunity">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="String" MaxLength="191" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Payment_date" />
+            <PropertyRef Name="Status" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Payment_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Status" Type="String" MaxLength="191" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Created_at" Type="DateTime" Precision="3" />
+          <Property Name="Updated_at" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Teams" EntityType="Self.Team" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoice" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="Opportunities" EntityType="Self.Opportunity" />
+          <EntitySet Name="Payments" EntityType="Self.Payment" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="DB.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+                <ScalarProperty Name="TableId" ColumnName="TableId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="DB.Team">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="All_contacts" ColumnName="All_contacts" />
+                <ScalarProperty Name="All_items" ColumnName="All_items" />
+                <ScalarProperty Name="All_invoices" ColumnName="All_invoices" />
+                <ScalarProperty Name="All_opportunities" ColumnName="All_opportunities" />
+                <ScalarProperty Name="Unpaid_invoices" ColumnName="Unpaid_invoices" />
+                <ScalarProperty Name="Paid_invoices" ColumnName="Paid_invoices" />
+                <ScalarProperty Name="Lost_opportunities" ColumnName="Lost_opportunities" />
+                <ScalarProperty Name="Won_opportunities" ColumnName="Won_opportunities" />
+                <ScalarProperty Name="New_opportunities" ColumnName="New_opportunities" />
+                <ScalarProperty Name="Undeposited_funds" ColumnName="Undeposited_funds" />
+                <ScalarProperty Name="Deposited_funds" ColumnName="Deposited_funds" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="DB.Invoice">
+              <MappingFragment StoreEntitySet="Invoices">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Issue_date" ColumnName="Issue_date" />
+                <ScalarProperty Name="Due_date" ColumnName="Due_date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="DB.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Opportunities">
+            <EntityTypeMapping TypeName="DB.Opportunity">
+              <MappingFragment StoreEntitySet="Opportunities">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="DB.Payment">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Payment_date" ColumnName="Payment_date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Created_at" ColumnName="Created_at" />
+                <ScalarProperty Name="Updated_at" ColumnName="Updated_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
