@@ -13,18 +13,15 @@ namespace CittaDashboard.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public JsonResult GetNotifications()
         {
-            ViewBag.Message = "Your application description page.";
+            var notificationRegisterTime = Session["LastUpdated"] != null ? Convert.ToDateTime(Session["LastUpdated"]) : DateTime.Now;
+            NotificationComponent NC = new NotificationComponent();
+            var list = NC.GetContacts(notificationRegisterTime);
 
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            //update session here for get only new added contacts (notification)  
+            Session["LastUpdate"] = DateTime.Now;
+            return new JsonResult { Data = list, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
         }
     }
 }

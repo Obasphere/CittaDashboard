@@ -22,7 +22,7 @@ namespace CittaDashboard.Controllers
             model.Created_at = DateTime.Now;
             entity.Contacts.Add(model);
             entity.SaveChanges();
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
