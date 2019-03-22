@@ -12,76 +12,75 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
 
-<!-- Sidebar -->
-<ul class="sidebar navbar-nav"></ul>
+@section Sidebar{
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav"></ul>
+    }
 
-<div id="content-wrapper">
-    <div class="container-fluid">
+        <div class="container-fluid">
 
-        <!-- Breadcrumbs-->
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a>Add New Contact</a>
-            </li>
-        </ol>
-        <style>
-            .button {
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 10px 32px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 16px;
-                margin: 4px 2px;
-                cursor: pointer;
-            }
-
-            .button4 {
-                border-radius: 6px;
-            }
-
-            .control {
-                width: 459px;
-                height: 100px;
-            }
-        </style>
-
-
-        @using (Html.BeginForm(FormMethod.Post))
-        {
-            @Html.ValidationSummary(true)
-
-            <fieldset>
-
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Name)
-                </div>
-                <div class="editor-field">
-                    @Html.TextAreaFor(model => model.Name, new { id = "ValidateNametextbox", @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Name)
-                </div>
-
-
-                <p>
-                    <input id="SubmitProject" class="button button4" type="submit" value="Save" onclick="saveToFile()" />
-                </p>
-            </fieldset>
-        }
-        <script type="text/javascript">
-
-            function saveToFile() {
-                if ($("#ValidateNametextbox").val() == "") {
-                    alert("Comment Section should not be empty!!");
+            <!-- Breadcrumbs-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a>Add New Contact</a>
+                </li>
+            </ol>
+            <style>
+                .button {
+                    background-color: #4CAF50;
+                    border: none;
+                    color: white;
+                    padding: 10px 32px;
+                    text-align: center;
+                    text-decoration: none;
+                    display: inline-block;
+                    font-size: 16px;
+                    margin: 4px 2px;
+                    cursor: pointer;
                 }
-                else {
-                    alert("Go To Home Page of Client Browser.");
-                }
-            };
-        </script>
 
-    </div>
-    <!-- /.container-fluid -->
-</div>
-<!-- /.content-wrapper -->
+                .button4 {
+                    border-radius: 6px;
+                }
+
+                .control {
+                    width: 459px;
+                    height: 100px;
+                }
+            </style>
+
+
+            @using (Html.BeginForm(FormMethod.Post))
+            {
+                @Html.ValidationSummary(true)
+
+                <fieldset>
+
+                    <div class="editor-label">
+                        @Html.LabelFor(model => model.Name)
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextAreaFor(model => model.Name, new { id = "ValidateNametextbox", @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Name)
+                    </div>
+
+
+                    <p>
+                        <input id="SubmitProject" class="button button4" type="submit" value="Save" onclick="saveToFile()" />
+                    </p>
+                </fieldset>
+            }
+            <script type="text/javascript">
+
+                function saveToFile() {
+                    if ($("#ValidateNametextbox").val() == "") {
+                        alert("Comment Section should not be empty!!");
+                    }
+                    else {
+                        alert("Go To Home Page of Client Browser.");
+                    }
+                };
+            </script>
+
+        </div>
+        <!-- /.container-fluid -->
