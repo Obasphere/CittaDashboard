@@ -17,34 +17,57 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body id="page-top">
-    <div class="navbar navbar-expand navbar-dark bg-dark">
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
         <a class="navbar-brand mr-1" href="#">CittaDashboard</a>
         <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
             <i class="fas fa-bars"></i>
         </button>
-        <div class="container">
-            <div class="navbar-header">
-
-                <span class="noti fa fa-bell"><span class="count"> </span></span>
-                <div class="noti-content">
+        <div class="ml-auto mr-0 mr-md-3 my-2 my-md-0"></div>
+        <ul class="navbar-nav ml-auto ml-md-0">
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i>
+                        <span class="noti fas fa-bell fa-fw"><span class="badge badge-danger count"> </span></span>
+                    </i>
+                </a>
+                <div class="noti-content dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown">
                     <div class="noti-top-arrow"></div>
-                    <ul id="notiContent"></ul>
+                    <ul class="dropdown-item" href="#" id="notiContent"></ul>
                 </div>
-                @Html.ActionLink("Home Page", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-        </div>
-    </div>
-    <div id="wrapper">
-        @RenderBody()
+            </li>
+        </ul>
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-            <div class="container my-auto">
-                <div class="copyright text-center my-auto">
-                    <span>Copyright © Cittanuvola @DateTime.Now.Year</span>
+        @*<div class="container">
+                <div class="navbar-header">
+
+                    <span class="noti fa fa-bell"><span class="count"> </span></span>
+                    <div class="noti-content">
+                        <div class="noti-top-arrow"></div>
+                        <ul id="notiContent"></ul>
+                    </div>
+                    @Html.ActionLink("Home Page", "Index", "Home", null, new { @class = "navbar-brand" })
                 </div>
-            </div>
-        </footer>
+            </div>*@
+    </nav>
+    <div id="wrapper">
+
+        <ul class="sidebar navbar-nav">
+            @RenderSection("Sidebar")
+        </ul>
+
+        <div id="content-wrapper">
+
+            @RenderBody()
+
+            <!-- Sticky Footer -->
+            <footer class="sticky-footer">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright © Cittanuvola @DateTime.Now.Year</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
     </div>
     <!-- /#wrapper -->
     <!-- Scroll to Top Button-->
@@ -63,6 +86,7 @@
     <script src="~/Scripts/js/demo/chart-area-demo.js"></script>
     @RenderSection("scripts", required: false)
 
+
     @* Add Jquery Library *@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
     <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
@@ -74,59 +98,59 @@
     <style type="text/css">
         /*Added css for design notification area, you can design by your self*/
         /* COPY css content from youtube video description*/
-        .noti-content {
-            position: fixed;
-            right: 100px;
-            background: gray;
-            color: blue;
-            font-size: medium;
-            font-style: oblique;
-            font-family: Arial;
-            border-radius: 4px;
-            top: 57px;
-            width: 440px;
-            display: none;
-            border: 1px solid #9E988B;
-        }
+        /*.noti-content {
+                position: fixed;
+                right: 100px;
+                background: gray;
+                color: blue;
+                font-size: medium;
+                font-style: oblique;
+                font-family: Arial;
+                border-radius: 4px;
+                top: 57px;
+                width: 440px;
+                display: none;
+                border: 1px solid #9E988B;
+            }*/
 
-        ul#notiContent {
-            max-height: 200px;
-            overflow: auto;
-            padding: 0px;
-            margin: 0px;
-            padding-left: 20px;
-        }
+        /*ul#notiContent {
+                max-height: 200px;
+                overflow: auto;
+                padding: 0px;
+                margin: 0px;
+                padding-left: 20px;
+            }*/
 
-            ul#notiContent li {
-                margin: 3px;
-                padding: 6px;
-                background: white;
-            }
+        /*ul#notiContent li {
+                    margin: 3px;
+                    padding: 6px;
+                    background: white;
+                }*/
 
         .noti-top-arrow {
             border-color: transparent;
-            border-bottom-color: gray;
+            border-bottom-color: grey;
             border-style: dashed dashed solid;
             border-width: 0 8.5px 8.5px;
             position: absolute;
-            right: 16px;
+            right: 9px;
             top: -10px;
         }
 
-        span.noti {
-            color: #F5DEB3;
-            margin: 15px;
-            position: fixed;
-            right: 100px;
-            font-size: 23px;
-            cursor: pointer;
-        }
+        /*span.noti {
+                color: #F5DEB3;
+                margin: 15px;
+                position: fixed;
+                right: 100px;
+                font-size: 23px;
+                cursor: pointer;
+            }*/
 
-        span.count {
-            position: fixed;
-            top: -1px;
-            /*color:white;*/
-        }
+        /*span.count {
+                position: fixed;
+                top: -1px;
+                color:white;
+            }*/
 
         .noti:hover {
             color: white;
@@ -140,7 +164,7 @@
             $('span.noti').click(function (e) {
                 debugger;
                 e.stopPropagation();
-                $('span.noti').css("color", "#F5DEB3");
+                $('span.noti').css("color", "gray");
                 $('span.count').hide();
                 $('.noti-content').show();
                 var count = 0;
@@ -202,6 +226,5 @@
             }
         })
     </script>
-
 </body>
 </html>
